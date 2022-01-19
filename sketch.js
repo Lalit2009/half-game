@@ -1,6 +1,6 @@
 
 var dragon1, dragon2;
-var fireball;
+var fireballGroup;
 var edges;
 
 function preload(){
@@ -22,9 +22,11 @@ function setup(){
    dragon2.addAnimation("ABC",dragon2Animation)
    dragon2.scale = 2
    dragon2.velocityY = -3
-   fireball = createSprite(0,0,1,1)
+ 
+  // fireball = createSprite(0,0,1,1)
    edges = createEdgeSprites()
-   
+   fireballGroup=createGroup()
+   EfireballGroup=createGroup()
 }
 
 function draw(){
@@ -58,9 +60,13 @@ function draw(){
   if(keyDown(LEFT_ARROW)){
     dragon1.x = dragon1.x - 10
   }
-
-
   
+if(fireballGroup.isTouching(dragon2)){
+  fireballGroup[0].destroy()
+  Efireballs()
+}
+
+
   drawSprites()
  
   dragon2.bounceOff(edges)
@@ -77,11 +83,21 @@ function fireballs(){
     fireball.scale = 0.5;
     fireball.debug = true;
     fireball.setCollider("rectangle", 0,0,200,300)
-    
-  if(fireball.isTouching(dragon2)){
-    fireball.destroyEach()
-    
+fireballGroup.add(fireball)
   }
+  
+}
+
+function  Efireballs(){
+  if(frameCount % 1 === 0){
+    Efireball = createSprite(1100,300)
+    Efireball.addAnimation("ABC3",fireball1)
+    Efireball.velocityX = -7
+    Efireball.y = dragon2.y
+    Efireball.scale = 0.5;
+    //fireball.debug = true;
+    //fireball.setCollider("rectangle", 0,0,200,300)
+EfireballGroup.add(Efireball)
   }
   
 }
